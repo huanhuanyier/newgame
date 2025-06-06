@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameForFun - Dragons Merge Battle Games | Play Free Online</title>
+    <meta name="description" content="Play GameForFun Dragons Merge Battle Games online for free. Merge powerful dragons, build your army, and engage in epic battles in this addictive strategy game.">
+    <meta name="keywords" content="gameforfun, dragons merge battle, online games, free games, strategy games, dragon games, merge games">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://gameforfun.fun/">
+    <meta property="og:title" content="GameForFun - Dragons Merge Battle Games">
+    <meta property="og:description" content="Play GameForFun Dragons Merge Battle Games online for free. Merge powerful dragons and engage in epic battles.">
+    <meta property="og:url" content="https://gameforfun.fun/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GameForFun">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GameForFun - Dragons Merge Battle Games">
+    <meta name="twitter:description" content="Play GameForFun Dragons Merge Battle Games online for free. Merge powerful dragons and engage in epic battles.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        .game-container {
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Apple Colors */
+        .apple-blue { color: #007AFF; }
+        .bg-apple-blue { background-color: #007AFF; }
+        .apple-green { color: #34C759; }
+        .bg-apple-green { background-color: #34C759; }
+        .apple-indigo { color: #5856D6; }
+        .bg-apple-indigo { background-color: #5856D6; }
+        .apple-orange { color: #FF9500; }
+        .bg-apple-orange { background-color: #FF9500; }
+        .apple-pink { color: #FF2D92; }
+        .bg-apple-pink { background-color: #FF2D92; }
+        .apple-purple { color: #AF52DE; }
+        .bg-apple-purple { background-color: #AF52DE; }
+        .apple-red { color: #FF3B30; }
+        .bg-apple-red { background-color: #FF3B30; }
+        .apple-teal { color: #5AC8FA; }
+        .bg-apple-teal { background-color: #5AC8FA; }
+        .apple-yellow { color: #FFCC00; }
+        .bg-apple-yellow { background-color: #FFCC00; }
+        .apple-gray { color: #8E8E93; }
+        .bg-apple-gray { background-color: #8E8E93; }
+        .apple-gray-light { color: #F2F2F7; }
+        .bg-apple-gray-light { background-color: #F2F2F7; }
+        .apple-gray-dark { color: #1C1C1E; }
+        .bg-apple-gray-dark { background-color: #1C1C1E; }
+        
+        .text-apple-blue { color: #007AFF; }
+        .text-apple-green { color: #34C759; }
+        .text-apple-indigo { color: #5856D6; }
+        .text-apple-orange { color: #FF9500; }
+        .text-apple-pink { color: #FF2D92; }
+        .text-apple-purple { color: #AF52DE; }
+        .text-apple-red { color: #FF3B30; }
+        .text-apple-teal { color: #5AC8FA; }
+        .text-apple-yellow { color: #FFCC00; }
+        .text-apple-gray { color: #8E8E93; }
+        .text-apple-gray-light { color: #F2F2F7; }
+        .text-apple-gray-dark { color: #1C1C1E; }
+        
+        .from-apple-blue { --tw-gradient-from: #007AFF; }
+        .to-apple-purple { --tw-gradient-to: #AF52DE; }
+        .from-apple-green { --tw-gradient-from: #34C759; }
+        .to-apple-teal { --tw-gradient-to: #5AC8FA; }
+        .from-apple-orange { --tw-gradient-from: #FF9500; }
+        .to-apple-red { --tw-gradient-to: #FF3B30; }
+        .from-apple-purple { --tw-gradient-from: #AF52DE; }
+        .to-apple-pink { --tw-gradient-to: #FF2D92; }
+        .from-apple-teal { --tw-gradient-from: #5AC8FA; }
+        .from-apple-indigo { --tw-gradient-from: #5856D6; }
+        
+        .hover\:text-apple-blue:hover { color: #007AFF; }
+        .hover\:text-apple-indigo:hover { color: #5856D6; }
+    </style>
+</head>
+<body class="bg-apple-gray-light min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-apple-blue to-apple-purple rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">G</span>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent">
+                        GameForFun
+                    </h1>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#game" class="text-apple-gray hover:text-apple-blue transition-colors">Play Game</a>
+                    <a href="#about" class="text-apple-gray hover:text-apple-blue transition-colors">About</a>
+                    <a href="#features" class="text-apple-gray hover:text-apple-blue transition-colors">Features</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Dragons Merge Battle Games
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+                Merge powerful dragons, build your ultimate army, and dominate epic battles in this thrilling strategy adventure.
+            </p>
+            <a href="#game" class="inline-block bg-white text-apple-blue px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-50 transition-colors hover-lift">
+                Play Now - Free!
+            </a>
+        </div>
+    </section>
+
+    <!-- Game Section -->
+    <section id="game" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-4">
+                    Play GameForFun Online
+                </h2>
+                <p class="text-lg text-apple-gray max-w-2xl mx-auto">
+                    Experience the ultimate dragon merging adventure directly in your browser. No downloads required!
+                </p>
+            </div>
+            
+            <div class="game-container bg-apple-gray-dark rounded-2xl p-2 mx-auto max-w-5xl">
+                <div id="game-frame-container" class="relative">
+                    <iframe 
+                        id="game-iframe"
+                        src="https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html"
+                        width="100%" 
+                        height="600"
+                        frameborder="0"
+                        allowfullscreen
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                        class="rounded-xl w-full"
+                        title="GameForFun Dragons Merge Battle Games"
+                        onload="handleGameLoad()"
+                        onerror="handleGameError()">
+                    </iframe>
+                    
+                    <!-- Fallback content when iframe fails -->
+                    <div id="game-fallback" class="hidden absolute inset-0 bg-gradient-to-br from-purple-900 to-blue-900 rounded-xl flex items-center justify-center text-white">
+                        <div class="text-center p-8">
+                            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-4xl">🐉</span>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">Game Loading...</h3>
+                            <p class="text-lg mb-6 opacity-90">
+                                Experience epic dragon battles and strategic merging gameplay
+                            </p>
+                            <div class="space-y-3">
+                                <a href="https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html" 
+                                   target="_blank" 
+                                   class="inline-block bg-white text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                                    🚀 Play in New Window
+                                </a>
+                                <br>
+                                <button onclick="retryGame()" 
+                                        class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-all">
+                                    🔄 Retry Loading
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <div class="bg-white rounded-xl p-6 shadow-lg max-w-2xl mx-auto">
+                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Alternative Ways to Play</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <a href="https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html" 
+                           target="_blank" 
+                           class="flex items-center justify-center space-x-2 bg-apple-blue text-white px-4 py-3 rounded-lg hover:bg-blue-600 transition-all">
+                            <span>🌐</span>
+                            <span>Play on CrazyGames</span>
+                        </a>
+                        <button onclick="toggleFullscreen()" 
+                                class="flex items-center justify-center space-x-2 bg-apple-green text-white px-4 py-3 rounded-lg hover:bg-green-600 transition-all">
+                            <span>⛶</span>
+                            <span>Fullscreen Mode</span>
+                        </button>
+                    </div>
+                    <p class="text-apple-gray text-sm mt-4">
+                        💡 Tip: If the game doesn't load, try refreshing the page or playing in a new window
+                    </p>
+                </div>
+            </div>
+
+            <script>
+                let gameLoadTimeout;
+                
+                function handleGameLoad() {
+                    console.log('Game loaded successfully');
+                    clearTimeout(gameLoadTimeout);
+                }
+                
+                function handleGameError() {
+                    console.log('Game failed to load');
+                    showFallback();
+                }
+                
+                function showFallback() {
+                    document.getElementById('game-iframe').style.display = 'none';
+                    document.getElementById('game-fallback').classList.remove('hidden');
+                }
+                
+                function retryGame() {
+                    const iframe = document.getElementById('game-iframe');
+                    const fallback = document.getElementById('game-fallback');
+                    
+                    fallback.classList.add('hidden');
+                    iframe.style.display = 'block';
+                    iframe.src = iframe.src; // Reload iframe
+                    
+                    // Show fallback if game doesn't load within 10 seconds
+                    gameLoadTimeout = setTimeout(() => {
+                        showFallback();
+                    }, 10000);
+                }
+                
+                function toggleFullscreen() {
+                    const iframe = document.getElementById('game-iframe');
+                    if (iframe.requestFullscreen) {
+                        iframe.requestFullscreen();
+                    } else if (iframe.webkitRequestFullscreen) {
+                        iframe.webkitRequestFullscreen();
+                    } else if (iframe.msRequestFullscreen) {
+                        iframe.msRequestFullscreen();
+                    }
+                }
+                
+                // Auto-show fallback if game doesn't load within 10 seconds
+                gameLoadTimeout = setTimeout(() => {
+                    showFallback();
+                }, 10000);
+                
+                // Handle iframe load failures
+                document.getElementById('game-iframe').addEventListener('load', function() {
+                    try {
+                        // Try to access iframe content to check if it loaded properly
+                        const iframeDoc = this.contentDocument || this.contentWindow.document;
+                        if (!iframeDoc || iframeDoc.body.innerHTML.length === 0) {
+                            throw new Error('Empty iframe content');
+                        }
+                        handleGameLoad();
+                    } catch (e) {
+                        // Cross-origin restrictions prevent access, assume it loaded if no error
+                        console.log('Iframe loaded (cross-origin)');
+                        handleGameLoad();
+                    }
+                });
+            </script>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-apple-gray-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-6">
+                        About Dragons Merge Battle
+                    </h2>
+                    <p class="text-lg text-apple-gray mb-6">
+                        Dragons Merge Battle Games is an addictive strategy game that combines the excitement of dragon collection with tactical merge gameplay. Players start with basic dragon eggs and merge them to create increasingly powerful dragon warriors.
+                    </p>
+                    <p class="text-lg text-apple-gray mb-6">
+                        The game features stunning visual effects, smooth animations, and engaging battle mechanics that keep players coming back for more. Each merged dragon brings unique abilities and increased combat power to help you dominate the battlefield.
+                    </p>
+                    <p class="text-lg text-apple-gray">
+                        Whether you're a casual gamer looking for quick entertainment or a strategy enthusiast seeking deep gameplay, GameForFun delivers an experience that's both accessible and rewarding.
+                    </p>
+                </div>
+                <div class="bg-white rounded-2xl p-8 shadow-xl hover-lift">
+                    <h3 class="text-2xl font-bold text-apple-gray-dark mb-4">Game Stats</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Genre</span>
+                            <span class="font-semibold text-apple-blue">Strategy/Merge</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Platform</span>
+                            <span class="font-semibold text-apple-green">Web Browser</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Cost</span>
+                            <span class="font-semibold text-apple-orange">Free to Play</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-apple-gray">Age Rating</span>
+                            <span class="font-semibold text-apple-purple">All Ages</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-4">
+                    Game Features
+                </h2>
+                <p class="text-lg text-apple-gray max-w-2xl mx-auto">
+                    Discover what makes Dragons Merge Battle Games the ultimate online gaming experience.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-apple-blue to-apple-indigo rounded-2xl p-8 text-white hover-lift">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🐉</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Dragon Collection</h3>
+                    <p>Collect and merge dozens of unique dragon species, each with distinct abilities and combat styles.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-apple-green to-apple-teal rounded-2xl p-8 text-white hover-lift">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">⚔️</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Epic Battles</h3>
+                    <p>Engage in strategic battles against AI opponents and test your merged dragon army's strength.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-apple-orange to-apple-red rounded-2xl p-8 text-white hover-lift">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🏆</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Progressive Rewards</h3>
+                    <p>Unlock achievements, earn rewards, and climb leaderboards as you master the art of dragon merging.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-apple-purple to-apple-pink rounded-2xl p-8 text-white hover-lift">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">📱</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Cross-Platform</h3>
+                    <p>Play seamlessly on desktop, tablet, or mobile devices with responsive design and touch controls.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-apple-teal to-apple-blue rounded-2xl p-8 text-white hover-lift">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Instant Play</h3>
+                    <p>No downloads or installations required. Jump straight into the action with instant browser gameplay.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-apple-indigo to-apple-purple rounded-2xl p-8 text-white hover-lift">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🎮</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Intuitive Controls</h3>
+                    <p>Easy-to-learn drag-and-drop mechanics make the game accessible to players of all skill levels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Play Section -->
+    <section class="py-16 bg-apple-gray-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-4">
+                    How to Play GameForFun
+                </h2>
+                <p class="text-lg text-apple-gray max-w-2xl mx-auto">
+                    Master the art of dragon merging with these simple steps and become the ultimate dragon commander.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-apple-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-2xl">1</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Start with Eggs</h3>
+                    <p class="text-apple-gray">Begin your journey with basic dragon eggs. These are your foundation for building a powerful army.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-apple-green rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-2xl">2</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Merge Dragons</h3>
+                    <p class="text-apple-gray">Drag and drop identical dragons to merge them into more powerful creatures with enhanced abilities.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover-lift">
+                    <div class="w-16 h-16 bg-apple-purple rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-white font-bold text-2xl">3</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Battle & Win</h3>
+                    <p class="text-apple-gray">Deploy your merged dragon army in epic battles and conquer increasingly challenging opponents.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-apple-gray-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-r from-apple-blue to-apple-purple rounded-xl flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">G</span>
+                        </div>
+                        <span class="text-2xl font-bold">GameForFun</span>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Your ultimate destination for free online games. Play Dragons Merge Battle Games and discover countless hours of entertainment.
+                    </p>
+                    <p class="text-gray-400 text-sm">
+                        © 2025 GameForFun.fun. All rights reserved.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#game" class="hover:text-apple-blue transition-colors">Play Game</a></li>
+                        <li><a href="#about" class="hover:text-apple-blue transition-colors">About</a></li>
+                        <li><a href="#features" class="hover:text-apple-blue transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-apple-blue transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Game Categories</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-apple-blue transition-colors">Strategy Games</a></li>
+                        <li><a href="#" class="hover:text-apple-blue transition-colors">Merge Games</a></li>
+                        <li><a href="#" class="hover:text-apple-blue transition-colors">Dragon Games</a></li>
+                        <li><a href="#" class="hover:text-apple-blue transition-colors">Free Games</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
