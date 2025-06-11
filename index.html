@@ -1,469 +1,736 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameForFun - Dragons Merge Battle Games | Play Free Online</title>
-    <meta name="description" content="Play GameForFun Dragons Merge Battle Games online for free. Merge powerful dragons, build your army, and engage in epic battles in this addictive strategy game.">
-    <meta name="keywords" content="gameforfun, dragons merge battle, online games, free games, strategy games, dragon games, merge games">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://gameforfun.fun/">
-    <meta property="og:title" content="GameForFun - Dragons Merge Battle Games">
-    <meta property="og:description" content="Play GameForFun Dragons Merge Battle Games online for free. Merge powerful dragons and engage in epic battles.">
-    <meta property="og:url" content="https://gameforfun.fun/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="GameForFun">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="GameForFun - Dragons Merge Battle Games">
-    <meta name="twitter:description" content="Play GameForFun Dragons Merge Battle Games online for free. Merge powerful dragons and engage in epic battles.">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <title>GameForFun - 免费在线游戏</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        .game-container {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .gradient-bg {
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background-color: #1a1a1a;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-240px);
+        }
+
+        .logo {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo h1 {
+            font-family: 'Arima Madurai', cursive;
+            font-weight: 700;
+            font-size: 24px;
+            color: #ff6b6b;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            margin-bottom: 2px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background-color: #333;
+            color: #ff6b6b;
+        }
+
+        .nav-link.active {
+            background-color: #ff6b6b;
+            color: #ffffff;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            margin-left: 240px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* 顶部栏 */
+        .header {
+            background-color: #1a1a1a;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            background-color: #333;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-icon {
+            width: 35px;
+            height: 35px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .user-icon:hover {
+            background-color: #ff5252;
+        }
+
+        /* 内容区域 */
+        .content {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-family: 'Arima Madurai', cursive;
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        /* 游戏网格 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
         }
-        
-        .glass-effect {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .hover-lift:hover {
+
+        .game-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-        
-        /* Apple Colors */
-        .apple-blue { color: #007AFF; }
-        .bg-apple-blue { background-color: #007AFF; }
-        .apple-green { color: #34C759; }
-        .bg-apple-green { background-color: #34C759; }
-        .apple-indigo { color: #5856D6; }
-        .bg-apple-indigo { background-color: #5856D6; }
-        .apple-orange { color: #FF9500; }
-        .bg-apple-orange { background-color: #FF9500; }
-        .apple-pink { color: #FF2D92; }
-        .bg-apple-pink { background-color: #FF2D92; }
-        .apple-purple { color: #AF52DE; }
-        .bg-apple-purple { background-color: #AF52DE; }
-        .apple-red { color: #FF3B30; }
-        .bg-apple-red { background-color: #FF3B30; }
-        .apple-teal { color: #5AC8FA; }
-        .bg-apple-teal { background-color: #5AC8FA; }
-        .apple-yellow { color: #FFCC00; }
-        .bg-apple-yellow { background-color: #FFCC00; }
-        .apple-gray { color: #8E8E93; }
-        .bg-apple-gray { background-color: #8E8E93; }
-        .apple-gray-light { color: #F2F2F7; }
-        .bg-apple-gray-light { background-color: #F2F2F7; }
-        .apple-gray-dark { color: #1C1C1E; }
-        .bg-apple-gray-dark { background-color: #1C1C1E; }
-        
-        .text-apple-blue { color: #007AFF; }
-        .text-apple-green { color: #34C759; }
-        .text-apple-indigo { color: #5856D6; }
-        .text-apple-orange { color: #FF9500; }
-        .text-apple-pink { color: #FF2D92; }
-        .text-apple-purple { color: #AF52DE; }
-        .text-apple-red { color: #FF3B30; }
-        .text-apple-teal { color: #5AC8FA; }
-        .text-apple-yellow { color: #FFCC00; }
-        .text-apple-gray { color: #8E8E93; }
-        .text-apple-gray-light { color: #F2F2F7; }
-        .text-apple-gray-dark { color: #1C1C1E; }
-        
-        .from-apple-blue { --tw-gradient-from: #007AFF; }
-        .to-apple-purple { --tw-gradient-to: #AF52DE; }
-        .from-apple-green { --tw-gradient-from: #34C759; }
-        .to-apple-teal { --tw-gradient-to: #5AC8FA; }
-        .from-apple-orange { --tw-gradient-from: #FF9500; }
-        .to-apple-red { --tw-gradient-to: #FF3B30; }
-        .from-apple-purple { --tw-gradient-from: #AF52DE; }
-        .to-apple-pink { --tw-gradient-to: #FF2D92; }
-        .from-apple-teal { --tw-gradient-from: #5AC8FA; }
-        .from-apple-indigo { --tw-gradient-from: #5856D6; }
-        
-        .hover\:text-apple-blue:hover { color: #007AFF; }
-        .hover\:text-apple-indigo:hover { color: #5856D6; }
+
+        .game-card:nth-child(2n) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .game-card:nth-child(3n) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .game-card:nth-child(4n) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .game-card:nth-child(5n) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .game-card:nth-child(6n) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+
+        .game-info {
+            padding: 15px;
+        }
+
+        .game-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-new {
+            background-color: #ff4444;
+            color: white;
+        }
+
+        .badge-hot {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .badge-updated {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        /* 游戏内页模态框 */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 95%;
+            height: 95%;
+            margin: 2.5% auto;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #333;
+            border-bottom: 1px solid #555;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-240px);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .search-container {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
     </style>
 </head>
-<body class="bg-apple-gray-light min-h-screen">
-    <!-- Header -->
-    <header class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-gradient-to-r from-apple-blue to-apple-purple rounded-xl flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">G</span>
-                    </div>
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-apple-blue to-apple-purple bg-clip-text text-transparent">
-                        GameForFun
-                    </h1>
-                </div>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#game" class="text-apple-gray hover:text-apple-blue transition-colors">Play Game</a>
-                    <a href="#about" class="text-apple-gray hover:text-apple-blue transition-colors">About</a>
-                    <a href="#features" class="text-apple-gray hover:text-apple-blue transition-colors">Features</a>
-                </nav>
+<body>
+    <!-- 左侧导航栏 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">
+            <h1>gameforfun</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-category="all">
+                    <div class="nav-icon" style="background-color: #4CAF50;"></div>
+                    首页 (Home)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="recent">
+                    <div class="nav-icon" style="background-color: #2196F3;"></div>
+                    最近玩过 (Recently played)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="new">
+                    <div class="nav-icon" style="background-color: #FF5722;"></div>
+                    新游戏 (New)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="trending">
+                    <div class="nav-icon" style="background-color: #FF9800;"></div>
+                    热门 (Trending now)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="updated">
+                    <div class="nav-icon" style="background-color: #FFC107;"></div>
+                    最新更新 (Updated)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="originals">
+                    <div class="nav-icon" style="background-color: #9C27B0;"></div>
+                    原创游戏 (Originals)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="multiplayer">
+                    <div class="nav-icon" style="background-color: #E91E63;"></div>
+                    多人游戏 (Multiplayer)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="2player">
+                    <div class="nav-icon" style="background-color: #3F51B5;"></div>
+                    双人游戏 (2 Player)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="action">
+                    <div class="nav-icon" style="background-color: #F44336;"></div>
+                    动作类 (Action)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="adventure">
+                    <div class="nav-icon" style="background-color: #795548;"></div>
+                    冒险类 (Adventure)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="basketball">
+                    <div class="nav-icon" style="background-color: #FF5722;"></div>
+                    篮球类 (Basketball)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="beauty">
+                    <div class="nav-icon" style="background-color: #E91E63;"></div>
+                    美妆类 (Beauty)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="bike">
+                    <div class="nav-icon" style="background-color: #4CAF50;"></div>
+                    自行车类 (Bike)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="car">
+                    <div class="nav-icon" style="background-color: #607D8B;"></div>
+                    汽车类 (Car)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="card">
+                    <div class="nav-icon" style="background-color: #9C27B0;"></div>
+                    卡片类 (Card)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="casual">
+                    <div class="nav-icon" style="background-color: #00BCD4;"></div>
+                    休闲类 (Casual)
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-content" id="mainContent">
+        <!-- 顶部栏 -->
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="搜索游戏..." id="searchBox">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="user-actions">
+                <div class="user-icon">👤</div>
+                <div class="user-icon">🔔</div>
+                <div class="user-icon">❤️</div>
+                <div class="user-icon">😊</div>
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content">
+            <h2 class="section-title" id="sectionTitle">新游戏</h2>
+            <div class="games-grid" id="gamesGrid">
+                <!-- 游戏卡片将通过JavaScript动态生成 -->
             </div>
         </div>
-    </header>
+    </main>
 
-    <!-- Hero Section -->
-    <section class="gradient-bg text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                Dragons Merge Battle Games
-            </h1>
-            <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
-                Merge powerful dragons, build your ultimate army, and dominate epic battles in this thrilling strategy adventure.
-            </p>
-            <a href="#game" class="inline-block bg-white text-apple-blue px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-50 transition-colors hover-lift">
-                Play Now - Free!
-            </a>
+    <!-- 游戏模态框 -->
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalGameTitle">游戏</h3>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <iframe class="game-iframe" id="gameIframe" src=""></iframe>
         </div>
-    </section>
+    </div>
 
-    <!-- Game Section -->
-    <section id="game" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-4">
-                    Play GameForFun Online
-                </h2>
-                <p class="text-lg text-apple-gray max-w-2xl mx-auto">
-                    Experience the ultimate dragon merging adventure directly in your browser. No downloads required!
-                </p>
-            </div>
-            
-            <div class="game-container bg-apple-gray-dark rounded-2xl p-2 mx-auto max-w-5xl">
-                <div id="game-frame-container" class="relative">
-                    <iframe 
-                        id="game-iframe"
-                        src="https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html"
-                        width="100%" 
-                        height="600"
-                        frameborder="0"
-                        allowfullscreen
-                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                        class="rounded-xl w-full"
-                        title="GameForFun Dragons Merge Battle Games"
-                        onload="handleGameLoad()"
-                        onerror="handleGameError()">
-                    </iframe>
-                    
-                    <!-- Fallback content when iframe fails -->
-                    <div id="game-fallback" class="hidden absolute inset-0 bg-gradient-to-br from-purple-900 to-blue-900 rounded-xl flex items-center justify-center text-white">
-                        <div class="text-center p-8">
-                            <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <span class="text-4xl">🐉</span>
-                            </div>
-                            <h3 class="text-2xl font-bold mb-4">Game Loading...</h3>
-                            <p class="text-lg mb-6 opacity-90">
-                                Experience epic dragon battles and strategic merging gameplay
-                            </p>
-                            <div class="space-y-3">
-                                <a href="https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html" 
-                                   target="_blank" 
-                                   class="inline-block bg-white text-purple-900 px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
-                                    🚀 Play in New Window
-                                </a>
-                                <br>
-                                <button onclick="retryGame()" 
-                                        class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-all">
-                                    🔄 Retry Loading
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-8">
-                <div class="bg-white rounded-xl p-6 shadow-lg max-w-2xl mx-auto">
-                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Alternative Ways to Play</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <a href="https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html" 
-                           target="_blank" 
-                           class="flex items-center justify-center space-x-2 bg-apple-blue text-white px-4 py-3 rounded-lg hover:bg-blue-600 transition-all">
-                            <span>🌐</span>
-                            <span>Play on CrazyGames</span>
-                        </a>
-                        <button onclick="toggleFullscreen()" 
-                                class="flex items-center justify-center space-x-2 bg-apple-green text-white px-4 py-3 rounded-lg hover:bg-green-600 transition-all">
-                            <span>⛶</span>
-                            <span>Fullscreen Mode</span>
-                        </button>
-                    </div>
-                    <p class="text-apple-gray text-sm mt-4">
-                        💡 Tip: If the game doesn't load, try refreshing the page or playing in a new window
-                    </p>
-                </div>
-            </div>
+    <script>
+        // 游戏数据
+        const gamesData = {
+            all: [
+                { name: "Mahjong Pet Quest", category: "休闲", badge: "new", url: "https://games.crazygames.com/en_US/mahjong-pet-quest/index.html" },
+                { name: "Smash Block Arena", category: "动作", badge: "new", url: "https://games.crazygames.com/en_US/smash-block-arena/index.html" },
+                { name: "Dragons Merge Battle", category: "策略", badge: "hot", url: "https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html" },
+                { name: "That's My Recipe", category: "模拟", badge: "new", url: "#" },
+                { name: "AFK Dungeon", category: "RPG", badge: "hot", url: "#" },
+                { name: "Guns vs Zombies", category: "射击", badge: "new", url: "#" },
+                { name: "Bounce Heroes", category: "动作", badge: "new", url: "#" },
+                { name: "Coffee Match", category: "休闲", badge: "new", url: "#" },
+                { name: "Asteroid Breaker", category: "动作", badge: "new", url: "#" },
+                { name: "King of Street", category: "格斗", badge: "updated", url: "#" },
+                { name: "Grand Escape", category: "逃脱", badge: "new", url: "#" },
+                { name: "Mineblox", category: "冒险", badge: "new", url: "#" },
+                { name: "Dead Seek", category: "恐怖", badge: "hot", url: "#" },
+                { name: "Squish", category: "休闲", badge: "new", url: "#" },
+                { name: "Loot Island", category: "冒险", badge: "new", url: "#" },
+                { name: "Little Grocery", category: "模拟", badge: "new", url: "#" },
+                { name: "Peak Free", category: "休闲", badge: "new", url: "#" },
+                { name: "Word String", category: "益智", badge: "new", url: "#" },
+                { name: "Graduation", category: "模拟", badge: "new", url: "#" },
+                { name: "Brainrot Idle", category: "点击", badge: "updated", url: "#" },
+                { name: "Paper Boy Race", category: "竞速", badge: "hot", url: "#" },
+                { name: "Homesteads", category: "模拟", badge: "hot", url: "#" },
+                { name: "DUO", category: "平台", badge: "hot", url: "#" },
+                { name: "Happy Villa", category: "休闲", badge: "hot", url: "#" },
+                { name: "Master Hit", category: "动作", badge: "new", url: "#" },
+                { name: "Evolution Factor", category: "策略", badge: "new", url: "#" },
+                { name: "Vikings Life", category: "模拟", badge: "hot", url: "#" },
+                { name: "Daily Emoji Hunt", category: "益智", badge: "hot", url: "#" },
+                { name: "Bomboo", category: "动作", badge: "new", url: "#" },
+                { name: "Click to Grill", category: "模拟", badge: "new", url: "#" },
+                { name: "Snake Block", category: "街机", badge: "new", url: "#" },
+                { name: "Meme Survivors", category: "射击", badge: "new", url: "#" },
+                { name: "Pocketro", category: "RPG", badge: "new", url: "#" }
+            ],
+            new: [],
+            trending: [],
+            updated: [],
+            recent: []
+        };
 
-            <script>
-                let gameLoadTimeout;
+        // 筛选不同类别的游戏
+        gamesData.new = gamesData.all.filter(game => game.badge === 'new');
+        gamesData.trending = gamesData.all.filter(game => game.badge === 'hot');
+        gamesData.updated = gamesData.all.filter(game => game.badge === 'updated');
+        gamesData.recent = gamesData.all.slice(0, 8); // 最近8个游戏
+
+        // DOM 元素
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const menuToggle = document.getElementById('menuToggle');
+        const gamesGrid = document.getElementById('gamesGrid');
+        const sectionTitle = document.getElementById('sectionTitle');
+        const searchBox = document.getElementById('searchBox');
+        const gameModal = document.getElementById('gameModal');
+        const gameIframe = document.getElementById('gameIframe');
+        const modalGameTitle = document.getElementById('modalGameTitle');
+        const closeModal = document.getElementById('closeModal');
+
+        // 当前活动类别
+        let currentCategory = 'all';
+
+        // 渲染游戏网格
+        function renderGames(games) {
+            gamesGrid.innerHTML = '';
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <div class="game-image">🎮 ${game.name}</div>
+                    <div class="game-info">
+                        <div class="game-title">${game.name}</div>
+                        <div style="font-size: 12px; opacity: 0.8;">${game.category}</div>
+                    </div>
+                    ${game.badge ? `<div class="game-badge badge-${game.badge}">${game.badge}</div>` : ''}
+                `;
                 
-                function handleGameLoad() {
-                    console.log('Game loaded successfully');
-                    clearTimeout(gameLoadTimeout);
-                }
-                
-                function handleGameError() {
-                    console.log('Game failed to load');
-                    showFallback();
-                }
-                
-                function showFallback() {
-                    document.getElementById('game-iframe').style.display = 'none';
-                    document.getElementById('game-fallback').classList.remove('hidden');
-                }
-                
-                function retryGame() {
-                    const iframe = document.getElementById('game-iframe');
-                    const fallback = document.getElementById('game-fallback');
-                    
-                    fallback.classList.add('hidden');
-                    iframe.style.display = 'block';
-                    iframe.src = iframe.src; // Reload iframe
-                    
-                    // Show fallback if game doesn't load within 10 seconds
-                    gameLoadTimeout = setTimeout(() => {
-                        showFallback();
-                    }, 10000);
-                }
-                
-                function toggleFullscreen() {
-                    const iframe = document.getElementById('game-iframe');
-                    if (iframe.requestFullscreen) {
-                        iframe.requestFullscreen();
-                    } else if (iframe.webkitRequestFullscreen) {
-                        iframe.webkitRequestFullscreen();
-                    } else if (iframe.msRequestFullscreen) {
-                        iframe.msRequestFullscreen();
-                    }
-                }
-                
-                // Auto-show fallback if game doesn't load within 10 seconds
-                gameLoadTimeout = setTimeout(() => {
-                    showFallback();
-                }, 10000);
-                
-                // Handle iframe load failures
-                document.getElementById('game-iframe').addEventListener('load', function() {
-                    try {
-                        // Try to access iframe content to check if it loaded properly
-                        const iframeDoc = this.contentDocument || this.contentWindow.document;
-                        if (!iframeDoc || iframeDoc.body.innerHTML.length === 0) {
-                            throw new Error('Empty iframe content');
-                        }
-                        handleGameLoad();
-                    } catch (e) {
-                        // Cross-origin restrictions prevent access, assume it loaded if no error
-                        console.log('Iframe loaded (cross-origin)');
-                        handleGameLoad();
+                gameCard.addEventListener('click', () => {
+                    if (game.url && game.url !== '#') {
+                        openGameModal(game.name, game.url);
                     }
                 });
-            </script>
-        </div>
-    </section>
+                
+                gamesGrid.appendChild(gameCard);
+            });
+        }
 
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-apple-gray-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-6">
-                        About Dragons Merge Battle
-                    </h2>
-                    <p class="text-lg text-apple-gray mb-6">
-                        Dragons Merge Battle Games is an addictive strategy game that combines the excitement of dragon collection with tactical merge gameplay. Players start with basic dragon eggs and merge them to create increasingly powerful dragon warriors.
-                    </p>
-                    <p class="text-lg text-apple-gray mb-6">
-                        The game features stunning visual effects, smooth animations, and engaging battle mechanics that keep players coming back for more. Each merged dragon brings unique abilities and increased combat power to help you dominate the battlefield.
-                    </p>
-                    <p class="text-lg text-apple-gray">
-                        Whether you're a casual gamer looking for quick entertainment or a strategy enthusiast seeking deep gameplay, GameForFun delivers an experience that's both accessible and rewarding.
-                    </p>
-                </div>
-                <div class="bg-white rounded-2xl p-8 shadow-xl hover-lift">
-                    <h3 class="text-2xl font-bold text-apple-gray-dark mb-4">Game Stats</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center">
-                            <span class="text-apple-gray">Genre</span>
-                            <span class="font-semibold text-apple-blue">Strategy/Merge</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-apple-gray">Platform</span>
-                            <span class="font-semibold text-apple-green">Web Browser</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-apple-gray">Cost</span>
-                            <span class="font-semibold text-apple-orange">Free to Play</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-apple-gray">Age Rating</span>
-                            <span class="font-semibold text-apple-purple">All Ages</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        // 打开游戏模态框
+        function openGameModal(gameName, gameUrl) {
+            modalGameTitle.textContent = gameName;
+            gameIframe.src = gameUrl;
+            gameModal.style.display = 'block';
+        }
 
-    <!-- Features Section -->
-    <section id="features" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-4">
-                    Game Features
-                </h2>
-                <p class="text-lg text-apple-gray max-w-2xl mx-auto">
-                    Discover what makes Dragons Merge Battle Games the ultimate online gaming experience.
-                </p>
-            </div>
+        // 关闭游戏模态框
+        function closeGameModal() {
+            gameModal.style.display = 'none';
+            gameIframe.src = '';
+        }
+
+        // 切换侧边栏
+        function toggleSidebar() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+            }
+        }
+
+        // 搜索游戏
+        function searchGames(query) {
+            const allGames = gamesData.all;
+            const filteredGames = allGames.filter(game => 
+                game.name.toLowerCase().includes(query.toLowerCase()) ||
+                game.category.toLowerCase().includes(query.toLowerCase())
+            );
+            renderGames(filteredGames);
+            sectionTitle.textContent = query ? `搜索结果: "${query}"` : '所有游戏';
+        }
+
+        // 切换类别
+        function switchCategory(category) {
+            currentCategory = category;
+            const games = gamesData[category] || gamesData.all;
+            renderGames(games);
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gradient-to-br from-apple-blue to-apple-indigo rounded-2xl p-8 text-white hover-lift">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">🐉</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Dragon Collection</h3>
-                    <p>Collect and merge dozens of unique dragon species, each with distinct abilities and combat styles.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-apple-green to-apple-teal rounded-2xl p-8 text-white hover-lift">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">⚔️</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Epic Battles</h3>
-                    <p>Engage in strategic battles against AI opponents and test your merged dragon army's strength.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-apple-orange to-apple-red rounded-2xl p-8 text-white hover-lift">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">🏆</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Progressive Rewards</h3>
-                    <p>Unlock achievements, earn rewards, and climb leaderboards as you master the art of dragon merging.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-apple-purple to-apple-pink rounded-2xl p-8 text-white hover-lift">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">📱</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Cross-Platform</h3>
-                    <p>Play seamlessly on desktop, tablet, or mobile devices with responsive design and touch controls.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-apple-teal to-apple-blue rounded-2xl p-8 text-white hover-lift">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">⚡</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Instant Play</h3>
-                    <p>No downloads or installations required. Jump straight into the action with instant browser gameplay.</p>
-                </div>
-                
-                <div class="bg-gradient-to-br from-apple-indigo to-apple-purple rounded-2xl p-8 text-white hover-lift">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mb-4">
-                        <span class="text-2xl">🎮</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Intuitive Controls</h3>
-                    <p>Easy-to-learn drag-and-drop mechanics make the game accessible to players of all skill levels.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            // 更新标题
+            const categoryTitles = {
+                all: '所有游戏',
+                new: '新游戏',
+                trending: '热门游戏',
+                updated: '最新更新',
+                recent: '最近玩过',
+                originals: '原创游戏',
+                multiplayer: '多人游戏',
+                '2player': '双人游戏',
+                action: '动作游戏',
+                adventure: '冒险游戏',
+                basketball: '篮球游戏',
+                beauty: '美妆游戏',
+                bike: '自行车游戏',
+                car: '汽车游戏',
+                card: '卡片游戏',
+                casual: '休闲游戏'
+            };
+            sectionTitle.textContent = categoryTitles[category] || '游戏';
+        }
 
-    <!-- How to Play Section -->
-    <section class="py-16 bg-apple-gray-light">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-4xl font-bold text-apple-gray-dark mb-4">
-                    How to Play GameForFun
-                </h2>
-                <p class="text-lg text-apple-gray max-w-2xl mx-auto">
-                    Master the art of dragon merging with these simple steps and become the ultimate dragon commander.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover-lift">
-                    <div class="w-16 h-16 bg-apple-blue rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-white font-bold text-2xl">1</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Start with Eggs</h3>
-                    <p class="text-apple-gray">Begin your journey with basic dragon eggs. These are your foundation for building a powerful army.</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover-lift">
-                    <div class="w-16 h-16 bg-apple-green rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-white font-bold text-2xl">2</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Merge Dragons</h3>
-                    <p class="text-apple-gray">Drag and drop identical dragons to merge them into more powerful creatures with enhanced abilities.</p>
-                </div>
-                
-                <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover-lift">
-                    <div class="w-16 h-16 bg-apple-purple rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span class="text-white font-bold text-2xl">3</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-apple-gray-dark mb-3">Battle & Win</h3>
-                    <p class="text-apple-gray">Deploy your merged dragon army in epic battles and conquer increasingly challenging opponents.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        // 事件监听器
+        menuToggle.addEventListener('click', toggleSidebar);
+        closeModal.addEventListener('click', closeGameModal);
 
-    <!-- Footer -->
-    <footer class="bg-apple-gray-dark text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-r from-apple-blue to-apple-purple rounded-xl flex items-center justify-center">
-                            <span class="text-white font-bold text-lg">G</span>
-                        </div>
-                        <span class="text-2xl font-bold">GameForFun</span>
-                    </div>
-                    <p class="text-gray-300 mb-4 max-w-md">
-                        Your ultimate destination for free online games. Play Dragons Merge Battle Games and discover countless hours of entertainment.
-                    </p>
-                    <p class="text-gray-400 text-sm">
-                        © 2025 GameForFun.fun. All rights reserved.
-                    </p>
-                </div>
+        // 点击模态框背景关闭
+        gameModal.addEventListener('click', (e) => {
+            if (e.target === gameModal) {
+                closeGameModal();
+            }
+        });
+
+        // 搜索功能
+        searchBox.addEventListener('input', (e) => {
+            const query = e.target.value;
+            if (query.trim()) {
+                searchGames(query);
+            } else {
+                switchCategory(currentCategory);
+            }
+        });
+
+        // 导航菜单点击事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
                 
-                <div>
-                    <h4 class="font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#game" class="hover:text-apple-blue transition-colors">Play Game</a></li>
-                        <li><a href="#about" class="hover:text-apple-blue transition-colors">About</a></li>
-                        <li><a href="#features" class="hover:text-apple-blue transition-colors">Features</a></li>
-                        <li><a href="#" class="hover:text-apple-blue transition-colors">Privacy Policy</a></li>
-                    </ul>
-                </div>
+                // 移除所有active类
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                // 添加active类到当前链接
+                link.classList.add('active');
                 
-                <div>
-                    <h4 class="font-semibold mb-4">Game Categories</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" class="hover:text-apple-blue transition-colors">Strategy Games</a></li>
-                        <li><a href="#" class="hover:text-apple-blue transition-colors">Merge Games</a></li>
-                        <li><a href="#" class="hover:text-apple-blue transition-colors">Dragon Games</a></li>
-                        <li><a href="#" class="hover:text-apple-blue transition-colors">Free Games</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
+                const category = link.getAttribute('data-category');
+                switchCategory(category);
+                
+                // 在移动设备上关闭侧边栏
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        });
+
+        // 响应式处理
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+            }
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && gameModal.style.display === 'block') {
+                closeGameModal();
+            }
+        });
+
+        // 初始化页面
+        renderGames(gamesData.all);
+    </script>
 </body>
 </html>
