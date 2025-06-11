@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameForFun - 免费在线游戏</title>
+    <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background-color: #1a1a1a;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.collapsed {
+            transform: translateX(-240px);
+        }
+
+        .logo {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo h1 {
+            font-family: 'Arima Madurai', cursive;
+            font-weight: 700;
+            font-size: 24px;
+            color: #ff6b6b;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            margin-bottom: 2px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 14px;
+        }
+
+        .nav-link:hover {
+            background-color: #333;
+            color: #ff6b6b;
+        }
+
+        .nav-link.active {
+            background-color: #ff6b6b;
+            color: #ffffff;
+        }
+
+        .nav-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+
+        /* 主内容区 */
+        .main-content {
+            margin-left: 240px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* 顶部栏 */
+        .header {
+            background-color: #1a1a1a;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            background-color: #333;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .search-box::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-icon {
+            width: 35px;
+            height: 35px;
+            background-color: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .user-icon:hover {
+            background-color: #ff5252;
+        }
+
+        /* 内容区域 */
+        .content {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-family: 'Arima Madurai', cursive;
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        /* 游戏网格 */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:nth-child(2n) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .game-card:nth-child(3n) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .game-card:nth-child(4n) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .game-card:nth-child(5n) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .game-card:nth-child(6n) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+
+        .game-info {
+            padding: 15px;
+        }
+
+        .game-title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .badge-new {
+            background-color: #ff4444;
+            color: white;
+        }
+
+        .badge-hot {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .badge-updated {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        /* 游戏内页模态框 */
+        .game-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 95%;
+            height: 95%;
+            margin: 2.5% auto;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #333;
+            border-bottom: 1px solid #555;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .game-iframe {
+            width: 100%;
+            height: calc(100% - 60px);
+            border: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-240px);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .header {
+                padding: 15px;
+            }
+
+            .search-container {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #666;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+    </style>
+</head>
+<body>
+    <!-- 左侧导航栏 -->
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">
+            <h1>gameforfun</h1>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link active" data-category="all">
+                    <div class="nav-icon" style="background-color: #4CAF50;"></div>
+                    首页 (Home)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="recent">
+                    <div class="nav-icon" style="background-color: #2196F3;"></div>
+                    最近玩过 (Recently played)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="new">
+                    <div class="nav-icon" style="background-color: #FF5722;"></div>
+                    新游戏 (New)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="trending">
+                    <div class="nav-icon" style="background-color: #FF9800;"></div>
+                    热门 (Trending now)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="updated">
+                    <div class="nav-icon" style="background-color: #FFC107;"></div>
+                    最新更新 (Updated)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="originals">
+                    <div class="nav-icon" style="background-color: #9C27B0;"></div>
+                    原创游戏 (Originals)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="multiplayer">
+                    <div class="nav-icon" style="background-color: #E91E63;"></div>
+                    多人游戏 (Multiplayer)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="2player">
+                    <div class="nav-icon" style="background-color: #3F51B5;"></div>
+                    双人游戏 (2 Player)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="action">
+                    <div class="nav-icon" style="background-color: #F44336;"></div>
+                    动作类 (Action)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="adventure">
+                    <div class="nav-icon" style="background-color: #795548;"></div>
+                    冒险类 (Adventure)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="basketball">
+                    <div class="nav-icon" style="background-color: #FF5722;"></div>
+                    篮球类 (Basketball)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="beauty">
+                    <div class="nav-icon" style="background-color: #E91E63;"></div>
+                    美妆类 (Beauty)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="bike">
+                    <div class="nav-icon" style="background-color: #4CAF50;"></div>
+                    自行车类 (Bike)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="car">
+                    <div class="nav-icon" style="background-color: #607D8B;"></div>
+                    汽车类 (Car)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="card">
+                    <div class="nav-icon" style="background-color: #9C27B0;"></div>
+                    卡片类 (Card)
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" data-category="casual">
+                    <div class="nav-icon" style="background-color: #00BCD4;"></div>
+                    休闲类 (Casual)
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="main-content" id="mainContent">
+        <!-- 顶部栏 -->
+        <header class="header">
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="搜索游戏..." id="searchBox">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="user-actions">
+                <div class="user-icon">👤</div>
+                <div class="user-icon">🔔</div>
+                <div class="user-icon">❤️</div>
+                <div class="user-icon">😊</div>
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content">
+            <h2 class="section-title" id="sectionTitle">新游戏</h2>
+            <div class="games-grid" id="gamesGrid">
+                <!-- 游戏卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </main>
+
+    <!-- 游戏模态框 -->
+    <div class="game-modal" id="gameModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalGameTitle">游戏</h3>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <iframe class="game-iframe" id="gameIframe" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // 游戏数据
+        const gamesData = {
+            all: [
+                { name: "Mahjong Pet Quest", category: "休闲", badge: "new", url: "https://games.crazygames.com/en_US/mahjong-pet-quest/index.html" },
+                { name: "Smash Block Arena", category: "动作", badge: "new", url: "https://games.crazygames.com/en_US/smash-block-arena/index.html" },
+                { name: "Dragons Merge Battle", category: "策略", badge: "hot", url: "https://games.crazygames.com/en_US/dragons-merge-battle-games/index.html" },
+                { name: "That's My Recipe", category: "模拟", badge: "new", url: "#" },
+                { name: "AFK Dungeon", category: "RPG", badge: "hot", url: "#" },
+                { name: "Guns vs Zombies", category: "射击", badge: "new", url: "#" },
+                { name: "Bounce Heroes", category: "动作", badge: "new", url: "#" },
+                { name: "Coffee Match", category: "休闲", badge: "new", url: "#" },
+                { name: "Asteroid Breaker", category: "动作", badge: "new", url: "#" },
+                { name: "King of Street", category: "格斗", badge: "updated", url: "#" },
+                { name: "Grand Escape", category: "逃脱", badge: "new", url: "#" },
+                { name: "Mineblox", category: "冒险", badge: "new", url: "#" },
+                { name: "Dead Seek", category: "恐怖", badge: "hot", url: "#" },
+                { name: "Squish", category: "休闲", badge: "new", url: "#" },
+                { name: "Loot Island", category: "冒险", badge: "new", url: "#" },
+                { name: "Little Grocery", category: "模拟", badge: "new", url: "#" },
+                { name: "Peak Free", category: "休闲", badge: "new", url: "#" },
+                { name: "Word String", category: "益智", badge: "new", url: "#" },
+                { name: "Graduation", category: "模拟", badge: "new", url: "#" },
+                { name: "Brainrot Idle", category: "点击", badge: "updated", url: "#" },
+                { name: "Paper Boy Race", category: "竞速", badge: "hot", url: "#" },
+                { name: "Homesteads", category: "模拟", badge: "hot", url: "#" },
+                { name: "DUO", category: "平台", badge: "hot", url: "#" },
+                { name: "Happy Villa", category: "休闲", badge: "hot", url: "#" },
+                { name: "Master Hit", category: "动作", badge: "new", url: "#" },
+                { name: "Evolution Factor", category: "策略", badge: "new", url: "#" },
+                { name: "Vikings Life", category: "模拟", badge: "hot", url: "#" },
+                { name: "Daily Emoji Hunt", category: "益智", badge: "hot", url: "#" },
+                { name: "Bomboo", category: "动作", badge: "new", url: "#" },
+                { name: "Click to Grill", category: "模拟", badge: "new", url: "#" },
+                { name: "Snake Block", category: "街机", badge: "new", url: "#" },
+                { name: "Meme Survivors", category: "射击", badge: "new", url: "#" },
+                { name: "Pocketro", category: "RPG", badge: "new", url: "#" }
+            ],
+            new: [],
+            trending: [],
+            updated: [],
+            recent: []
+        };
+
+        // 筛选不同类别的游戏
+        gamesData.new = gamesData.all.filter(game => game.badge === 'new');
+        gamesData.trending = gamesData.all.filter(game => game.badge === 'hot');
+        gamesData.updated = gamesData.all.filter(game => game.badge === 'updated');
+        gamesData.recent = gamesData.all.slice(0, 8); // 最近8个游戏
+
+        // DOM 元素
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const menuToggle = document.getElementById('menuToggle');
+        const gamesGrid = document.getElementById('gamesGrid');
+        const sectionTitle = document.getElementById('sectionTitle');
+        const searchBox = document.getElementById('searchBox');
+        const gameModal = document.getElementById('gameModal');
+        const gameIframe = document.getElementById('gameIframe');
+        const modalGameTitle = document.getElementById('modalGameTitle');
+        const closeModal = document.getElementById('closeModal');
+
+        // 当前活动类别
+        let currentCategory = 'all';
+
+        // 渲染游戏网格
+        function renderGames(games) {
+            gamesGrid.innerHTML = '';
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'game-card';
+                gameCard.innerHTML = `
+                    <div class="game-image">🎮 ${game.name}</div>
+                    <div class="game-info">
+                        <div class="game-title">${game.name}</div>
+                        <div style="font-size: 12px; opacity: 0.8;">${game.category}</div>
+                    </div>
+                    ${game.badge ? `<div class="game-badge badge-${game.badge}">${game.badge}</div>` : ''}
+                `;
+                
+                gameCard.addEventListener('click', () => {
+                    if (game.url && game.url !== '#') {
+                        openGameModal(game.name, game.url);
+                    }
+                });
+                
+                gamesGrid.appendChild(gameCard);
+            });
+        }
+
+        // 打开游戏模态框
+        function openGameModal(gameName, gameUrl) {
+            modalGameTitle.textContent = gameName;
+            gameIframe.src = gameUrl;
+            gameModal.style.display = 'block';
+        }
+
+        // 关闭游戏模态框
+        function closeGameModal() {
+            gameModal.style.display = 'none';
+            gameIframe.src = '';
+        }
+
+        // 切换侧边栏
+        function toggleSidebar() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+            }
+        }
+
+        // 搜索游戏
+        function searchGames(query) {
+            const allGames = gamesData.all;
+            const filteredGames = allGames.filter(game => 
+                game.name.toLowerCase().includes(query.toLowerCase()) ||
+                game.category.toLowerCase().includes(query.toLowerCase())
+            );
+            renderGames(filteredGames);
+            sectionTitle.textContent = query ? `搜索结果: "${query}"` : '所有游戏';
+        }
+
+        // 切换类别
+        function switchCategory(category) {
+            currentCategory = category;
+            const games = gamesData[category] || gamesData.all;
+            renderGames(games);
+            
+            // 更新标题
+            const categoryTitles = {
+                all: '所有游戏',
+                new: '新游戏',
+                trending: '热门游戏',
+                updated: '最新更新',
+                recent: '最近玩过',
+                originals: '原创游戏',
+                multiplayer: '多人游戏',
+                '2player': '双人游戏',
+                action: '动作游戏',
+                adventure: '冒险游戏',
+                basketball: '篮球游戏',
+                beauty: '美妆游戏',
+                bike: '自行车游戏',
+                car: '汽车游戏',
+                card: '卡片游戏',
+                casual: '休闲游戏'
+            };
+            sectionTitle.textContent = categoryTitles[category] || '游戏';
+        }
+
+        // 事件监听器
+        menuToggle.addEventListener('click', toggleSidebar);
+        closeModal.addEventListener('click', closeGameModal);
+
+        // 点击模态框背景关闭
+        gameModal.addEventListener('click', (e) => {
+            if (e.target === gameModal) {
+                closeGameModal();
+            }
+        });
+
+        // 搜索功能
+        searchBox.addEventListener('input', (e) => {
+            const query = e.target.value;
+            if (query.trim()) {
+                searchGames(query);
+            } else {
+                switchCategory(currentCategory);
+            }
+        });
+
+        // 导航菜单点击事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 移除所有active类
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                // 添加active类到当前链接
+                link.classList.add('active');
+                
+                const category = link.getAttribute('data-category');
+                switchCategory(category);
+                
+                // 在移动设备上关闭侧边栏
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        });
+
+        // 响应式处理
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+            }
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && gameModal.style.display === 'block') {
+                closeGameModal();
+            }
+        });
+
+        // 初始化页面
+        renderGames(gamesData.all);
+    </script>
+</body>
+</html>
